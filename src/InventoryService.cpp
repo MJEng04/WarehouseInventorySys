@@ -27,19 +27,40 @@ void InventoryService::addProduct(Product product) {
     productRepo.saveAll(products);
 }
 
+std::vector<Product> InventoryService::getAllProducts() {
+    return productRepo.loadAll();
+}
+
+std::vector<Product> InventoryService::getActiveProducts() {
+    std::vector<Product> all = productRepo.loadAll();
+    std::vector<Product> active;
+    for (Product& p : all) {
+        if (p.isActiveProduct()) active.push_back(p);
+    }
+    return active;
+}
+
 // FInds existing product by ID and applies updated attributes.
-void InventoryService::editProduct(std::string productId, Product updatedProduct) {
+void InventoryService::editProduct(std::string productId, std::string newName,
+                                    int newQuantity, double newPrice,
+                                    std::string newLocation) {
     std::vector<Product> products = productRepo.loadAll();
     Product* p = productRepo.findById(products, productId);
 
     if (p == nullptr) {
         throw std::runtime_error("Product not found: " + productId);
     }
+    if (newQuantity < 0) {
+        throw std::runtime_error("Quantity cannot be negative.");
+    }
+    if (newPrice < 0) {
+        throw std::runtime_error("Price cannot be negative.");
+    }
 
-    p->setName(updatedProduct.getName());
-    p->setQuantity(updatedProduct.getQuantity());
-    p->setPrice(updatedProduct.getPrice());
-    p->setLocation(updatedProduct.getLocation());
+    p->setName(newName);
+    p->setQuantity(newQuantity);
+    p->setPrice(newPrice);
+    p->setLocation(newLocation);
 
     productRepo.saveAll(products);
 }

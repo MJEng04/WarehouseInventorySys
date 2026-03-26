@@ -23,7 +23,15 @@ public:
     void addProduct(Product product);
 
     // Updates existing product details -> saves changes to storage.
-    void editProduct(std::string productId, Product updatedProduct);
+    void editProduct(std::string productId, std::string newName, int newQuantity,
+                     double newPrice, std::string newLocation);
+
+    // Returns all products including inactive ones
+    std::vector<Product> getAllProducts();
+
+    // Returns only active products
+    std::vector<Product> getActiveProducts();
+
 
     // Makes product inactive -> if not part of any pending orders.
     void deactivateProduct(std::string productId, std::vector<Order>& orders);
