@@ -12,23 +12,36 @@ private:
     EmployeeService& employeeService;   // for managing system users.
     OrderService& orderService;         // for managing order lifecycle.
 
-    void handleProducts();    // for product-related tasks.
-    void addProduct();        // for adding new product.
-    void viewProducts();      // for listing products.
-    void editProduct();       // for updating product details.
-    void deactivateProduct(); // for soft-deleting product.
+    // Product Section
+    void handleProducts();     // for product-related tasks.
+    void addProduct();         // for adding new product.
+    void viewProducts();       // for listing products.
+    void editProduct();        // for updating product details.
+    void deactivateProduct();  // for soft-deleting product.
+    void reactivateProduct();  // for reactivating inactive products
+
+    // Employee Section
+    void handleEmployees();    // for employee related tasks
+    void addEmployee();        // for adding new employees
+    void viewEmployees();      // for listing all employees
+    void editEmployee();       // for updating employee details
+    void deactivateEmployee(); // for soft-deleting employees
+    void reactivateEmployee(); // for reactivating inactive employees
     
-    void handleOrders();  // for order-related tasks.
-    void createOrder();   // for starting a order.
-    void viewOrders();    // for displaying orders.
-    void editOrder();     // for updating order items.
-    void assignOrder();   // for assigning orders to employees.
+    // Order Section
+    void handleOrders();      // for order-related tasks.
+    void createOrder();       // for starting a order.
+    void viewOrders();        // for displaying orders.
+    void editOrder();         // for updating order items.
+    void assignOrder();       // for assigning orders to employees.
 
-    void handleReports(); // for generating CSV exports.
+    // Reports
+    void handleReports();     // for generating and exporting CSV data reports.
 
-    void printDivider();                
-    void waitForEnter();                
-    int getMenuChoice(int min, int max);
+    // Misc Methods
+    void printDivider();                 // for displaying visual separators in console.          
+    void waitForEnter();                 // for pausing until user responds.
+    int getMenuChoice(int min, int max); // for validating user input within range.
 
 public:
     // Links console UI to backend.
@@ -40,3 +53,4 @@ public:
 };
 
 #endif
+
