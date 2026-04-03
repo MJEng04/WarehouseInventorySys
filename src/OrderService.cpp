@@ -43,6 +43,21 @@ void OrderService::createOrder(Order order) {
     if (order.getItems().empty()) {
         throw std::runtime_error("Can't create an order with no items.");
     }
+    
+    // Validates that items in the order exist and are active before saving
+    std::vector<Product> products = productRepo.loadAll();
+    for (OrderItem& item : order.getItems()) {
+        Product* p = productRepo.findById(products, item.getProductId());
+        if (p == nullptr) {
+            throw std::runtime_error("Product does not exist: " + item.getProductId());
+        }
+        if (!p->isActiveProduct()) {
+            throw std::runtime_error("Product is inactive and can't be ordered: " + item.getProductId());
+        }
+        if (item.getQuantity() <= 0) {
+            throw std::runtime_error("Order item quantity must be greater than zero.");
+        }
+    }
 
     orders.push_back(order);
     orderRepo.saveAll(orders);
@@ -53,8 +68,15 @@ void OrderService::editOrder(std::string orderNumber, std::vector<OrderItem> new
     std::vector<Order> orders = orderRepo.loadAll();
     Order* o = orderRepo.findByNumber(orders, orderNumber);
 
-    if (o == nullptr || o->getStatus() == OrderStatus::COMPLETED) {
-        throw std::runtime_error("Order not found or already completed.");
+    if (o == nullptr) {
+    throw std::runtime_error("Order not found: " + orderNumber);
+    }
+    // Prevents editing orders that have already been assigned or completed
+    if (o->getStatus() == OrderStatus::ASSIGNED) {
+        throw std::runtime_error("Cannot edit an assigned order.");
+    }
+    if (o->getStatus() == OrderStatus::COMPLETED) {
+        throw std::runtime_error("Cannot edit a completed order.");
     }
 
     if (newItems.empty()) {
@@ -77,8 +99,15 @@ void OrderService::assignOrder(std::string orderNumber, std::string employeeId) 
     std::vector<Order> orders = orderRepo.loadAll();
     Order* o = orderRepo.findByNumber(orders, orderNumber);
 
-    if (o == nullptr || o->getStatus() == OrderStatus::COMPLETED) {
-        throw std::runtime_error("Order not found or already completed.");
+    if (o == nullptr) {
+    throw std::runtime_error("Order not found: " + orderNumber);
+    }
+    // Prevents reassigning an order already assigned to an employee
+    if (o->getStatus() == OrderStatus::ASSIGNED) {
+        throw std::runtime_error("This order is already assigned to employee: " + o->getAssignedEmployeeId());
+    }
+    if (o->getStatus() == OrderStatus::COMPLETED) {
+        throw std::runtime_error("Can't assign completed order.");
     }
 
     std::vector<Employee> employees = employeeRepo.loadAll();
