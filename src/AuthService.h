@@ -19,7 +19,7 @@ private:
 public:
     // Constructs AuthService with reference to employee repo.
     AuthService(EmployeeRepository& employeeRepo,
-                std::string managerId = "MGR001",
+                std::string managerId = "BIGBOSS04",
                 std::string managerName = "MARTIN");
 
     // Determines role of user based on ID.

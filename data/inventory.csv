@@ -1,0 +1,7 @@
+ProductID,Name,Quantity,Price,Location,Status
+EL_CINCO05,PS5,100,599.99,Aisle A Shelf 1,Active
+AIR_FRYER01,Air Fryer,100,59.99,Aisle C Shelf 2,Active
+MONITOR101,Dell Monitor,100,45.99,Aisle C Shelf 3,Active
+MOUSE001,Wireless Mouse,100,12.99,Aisle A Shelf 1,Active
+HAT001,Wireless Hat,100,23.99,Aisle A Shelf 2,Active
+EMP004,Johnathan,100,12,q,Inactive
