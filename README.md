@@ -48,19 +48,29 @@ g++ -o warehouse main.cpp src/*.cpp
 - Employee ID: see `data/employees.csv`
 
 ## Project Structure
+```
 warehouse-ims/
 ├── src/
-│   ├── domain/     (User, Product, Order, OrderItem)
-│   ├── services/   (Auth, Inventory, Order, Employee)
-│   ├── repos/      (Product, Order, Employee repositories)
-│   └── ui/         (Manager and Employee consoles)
+│   ├── AuthService.cpp / .h
+│   ├── EmployeeConsole.cpp / .h
+│   ├── EmployeeRepository.cpp / .h
+│   ├── EmployeeService.cpp / .h
+│   ├── InventoryService.cpp / .h
+│   ├── ManagerConsole.cpp / .h
+│   ├── OrderRepository.cpp / .h
+│   ├── OrderService.cpp / .h
+│   ├── ProductRepository.cpp / .h
+│   ├── Product.cpp / .h
+│   ├── Order.cpp / .h
+│   ├── OrderItem.cpp / .h
+│   └── User.cpp / .h
 ├── data/
 │   ├── products.csv
 │   ├── employees.csv
 │   └── orders.csv
 ├── main.cpp
 └── README.md
-
+```
 ## Key Design Decisions
 - **Soft deletion** — products and employees are marked inactive rather than deleted, preserving historical order data
 - **Order state machine** — orders follow a strict CREATED → ASSIGNED → COMPLETED lifecycle
