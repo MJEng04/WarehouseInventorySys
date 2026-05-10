@@ -1,0 +1,27 @@
+# Compiled output
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.lib
+*.dll
+*.out
+*.o
+
+# Build folders
+x64/
+Debug/
+Release/
+build/
+out/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# VS Code
+.vscode/
+
+# Data files with real data - keep sample only
+# data/*.csv
